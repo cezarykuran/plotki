@@ -1,0 +1,10 @@
+p, p.h4 {margin: 1em 0}
+
+.plotContainer {position:relative; overflow: hidden}
+#plotDetails {position: absolute; left:100%}
+#plot.details, #plotDetails.details {float: left; width: 50%}
+#plotDetails.details {position: relative; left:0}
+.plotContainer .shiny-output-error {visibility: hidden;}
+
+#rglplotAdd {float: right}
+#rglplotError {color: red}
