@@ -11,8 +11,8 @@ rglUITab <- function() {
         div(class="row",
             div(class="col-md-2 col-sm-3",
                 #numericInput("rglplotX", NULL, 0, min = 1),
-                div(class="form-group shiny-input-container",
-                    div(class="input-group",
+                div(class="form-group",
+                    div(class="input-group input-group-sm",
                         div(class="input-group-addon", "x"),
                         tags$input(type="number", id="rglplotX", class="form-control shiny-bound-input")
                     )
@@ -20,7 +20,7 @@ rglUITab <- function() {
             ),
             div(class="col-md-2 col-sm-3",
                 div(class="form-group",
-                    div(class="input-group shiny-input-container",
+                    div(class="input-group",
                         div(class="input-group-addon", "y"),
                         tags$input(type="number", id="rglplotY", class="form-control shiny-bound-input")
                     )
@@ -49,7 +49,7 @@ rglUITab <- function() {
             ),
             div(class="col-md-2 col-sm-6",
                 div(class="form-group",
-                    actionButton("rglplotAdd", "Add")
+                    tags$button(type="button", id="rglplotAdd", class="btn btn-sm btn-primary action-button", "Add")
                 )
             )
         ),
@@ -76,7 +76,7 @@ rglServer <- function(input, output, session) {
       e <- append(e, "Wrong y value")
     if(!is.numeric(input$rglplotZ))
       e <- append(e, "Wrong z value")
-    if(!is.numeric(input$rglplotR))
+    if(!is.numeric(input$rglplotR) || input$rglplotR < 0)
       e <- append(e, "Wrong r value")
     
     if(length(e) > 0) {

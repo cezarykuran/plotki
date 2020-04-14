@@ -7,6 +7,8 @@ source('mod_rgl.R')
 
 
 shinyUI = fixedPage(
+  #theme = "flatly.min.css",
+
   tags$head(
     tags$link(rel="stylesheet", href = "style.css"),
     tags$script(src = "main.js")
