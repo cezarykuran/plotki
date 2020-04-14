@@ -8,7 +8,7 @@ ggplot2fl <- function() {
 
 ggplot2UITab <- function() {
   tabPanel("ggplot2",
-    p("Library ggplot2"),
+    p(class="h4", "Library ggplot2"),
     plotOutput("ggplot2", click = "ggplot2Click", brush = "ggplot2Brush"),
     div(class='',
       div(class='row',

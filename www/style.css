@@ -1,12 +1,13 @@
 p, p.h4 {margin: 1em 0}
 .shiny-input-container:not(.shiny-input-container-inline) {width: 100%}
+.shiny-output-error {visibility: hidden;}
 
 .plotContainer {position:relative; overflow: hidden}
 #plotDetails {position: absolute; left:100%}
 #plot.details, #plotDetails.details {float: left; width: 50%}
 #plotDetails.details {position: relative; left:0}
-.plotContainer .shiny-output-error {visibility: hidden;}
-#plotReload {display: block; margin-top: 10px}
 
 #rglplotAdd {float: right}
 #rglplotError {color: red}
+
+#plotReload, #rglplotRandom {display: block; margin-top: 10px}

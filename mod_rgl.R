@@ -1,6 +1,6 @@
 options(rgl.useNULL = TRUE)
 library(rgl)
-library(rglwidget)
+#library(rglwidget)
 
 rglUITab <- function() {
   tabPanel("rgl",
@@ -8,9 +8,15 @@ rglUITab <- function() {
            
     rglwidgetOutput("rglplot"),
     div(class="well",
+        div(class='row',
+            div(class='col-sm-10', sliderInput('rglplotRandomMax', NULL, value = 20, min = 10, max = 50)),
+            div(class='col-sm-2', tags$button(type="button", id="rglplotRandom", class="btn btn-sm btn-primary center-block action-button shiny-bound-input", "Add random"))
+        ),
+
+        hr(),
+
         div(class="row",
             div(class="col-md-2 col-sm-3",
-                #numericInput("rglplotX", NULL, 0, min = 1),
                 div(class="form-group",
                     div(class="input-group input-group-sm",
                         div(class="input-group-addon", "x"),
@@ -68,6 +74,29 @@ rglServer <- function(input, output, session) {
     rglwidget()
   })
   
+  rglDataRedraw <- function() {
+    output$rglplot <- renderRglwidget({
+      try(rgl.close(), silent = TRUE)
+      
+      for(i in 1:nrow(rglData)) {
+        spheres3d(rglData[i,1], rglData[i,2], rglData[i,3], radius = rglData[i,4], color = rglData[i,5])
+      }
+      axes3d()
+      rglwidget()
+    })
+  }
+  
+  observeEvent(input$rglplotRandom, {
+    rglData <<- rbind(rglData, c(
+                    runif(1,-input$rglplotRandomMax,input$rglplotRandomMax),
+                    runif(1,-input$rglplotRandomMax,input$rglplotRandomMax),
+                    runif(1,-input$rglplotRandomMax,input$rglplotRandomMax),
+                    runif(1,1,round(input$rglplotRandomMax/2)),
+                    colours()[runif(1,1,length(colours()))]
+                  ))
+    rglDataRedraw()
+  })
+  
   observeEvent(input$rglplotAdd, {
     e <- c()
     if(!is.numeric(input$rglplotX))
@@ -86,15 +115,6 @@ rglServer <- function(input, output, session) {
     session$sendCustomMessage("rglplotError", FALSE)
     
     rglData <<- rbind(rglData, c(input$rglplotX, input$rglplotY, input$rglplotZ, input$rglplotR, input$rglplotColour))
-    
-    output$rglplot <- renderRglwidget({
-      try(rgl.close(), silent = TRUE)
-      
-      for(i in 1:nrow(rglData)) {
-        spheres3d(rglData[i,1], rglData[i,2], rglData[i,3], radius = rglData[i,4], color = rglData[i,5])
-      }
-      axes3d()
-      rglwidget()
-    })
+    rglDataRedraw()
   })
 }

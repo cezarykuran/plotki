@@ -17,6 +17,7 @@ shinyUI = fixedPage(
   h1("Shiny plots"),
 
   tabsetPanel(
+    tabPanel('Home', includeMarkdown('README.md')),
     plotUITab(),
     ggplot2UITab(),
     plotlyUITab(),

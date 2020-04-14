@@ -8,8 +8,8 @@ plotUITab <- function() {
       plotOutput("plotDetails", width=NULL)
     ),
     div(class='row',
-      div(class='col-sm-8', sliderInput('plotSize', NULL, value = 500, min = 10, max = 1000)),
-      div(class='col-sm-4', tags$button(type="button", id="plotReload", class="btn btn-sm btn-primary action-button shiny-bound-input", "Reload data"))
+      div(class='col-sm-10', sliderInput('plotSize', NULL, value = 500, min = 10, max = 1000)),
+      div(class='col-sm-2', tags$button(type="button", id="plotReload", class="btn btn-sm btn-primary pull-right action-button shiny-bound-input", "Reload data"))
     )
   )
 }
