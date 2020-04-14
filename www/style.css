@@ -10,4 +10,4 @@ p, p.h4 {margin: 1em 0}
 #rglplotAdd {float: right}
 #rglplotError {color: red}
 
-#plotReload, #rglplotRandom {display: block; margin-top: 10px}
+#plotReload, #rglplotRandom {margin-top: 10px}

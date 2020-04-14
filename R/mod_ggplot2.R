@@ -10,7 +10,7 @@ ggplot2UITab <- function() {
   tabPanel("ggplot2",
     p(class="h4", "Library ggplot2"),
     plotOutput("ggplot2", click = "ggplot2Click", brush = "ggplot2Brush"),
-    div(class='',
+    div(class='well',
       div(class='row',
         div(class='col-md-3 col-sm-6', selectInput('ggplot2theme', 'Theme', c('classic', 'bw', 'minimal', 'light', 'dark'))),
         div(class='col-md-3 col-sm-6', selectInput('ggplot2type', 'Type', c('point', 'line'))),

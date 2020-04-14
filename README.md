@@ -1,22 +1,23 @@
 ## PLOTKI
 This is a simple application demonstrating the operation of shiny plots.
 The online version is available on http://shiny.dafne.prv.ovh/plotki/ - shiny server through apache proxy whit basic authentication (shiny/shiny).
+Source code is available at https://github.com/cezarykuran/plotki
 
 
-#### plot
-Pure generic shiny ploting. Plot use random data and some animation - selecting area on plot..
+### plot
+Pure generic shiny ploting. Plot use random data and some animation - selecting area on plot ...
 
 
 
-#### ggplot2
+### ggplot2
 Plot using ggplot2 library. Data comes from uploaded csv files.
 It is possible to enlarge the chart
 
 
 
-#### plotly
+### plotly
+...
 
 
-
-#### rgl
+### rgl
 rgl library uses WebGL (openGL). 

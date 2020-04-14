@@ -7,9 +7,11 @@ plotUITab <- function() {
       plotOutput("plot", width=NULL, click = "plotClick", brush = "plotBrush"),
       plotOutput("plotDetails", width=NULL)
     ),
-    div(class='row',
-      div(class='col-sm-10', sliderInput('plotSize', NULL, value = 500, min = 10, max = 1000)),
-      div(class='col-sm-2', tags$button(type="button", id="plotReload", class="btn btn-sm btn-primary pull-right action-button shiny-bound-input", "Reload data"))
+    div(class = 'well',
+      div(class='row',
+        div(class='col-sm-10', sliderInput('plotSize', NULL, value = 500, min = 10, max = 1000)),
+        div(class='col-sm-2', tags$button(type="button", id="plotReload", class="btn btn-sm btn-primary pull-right action-button shiny-bound-input", "Reload data"))
+      )
     )
   )
 }

@@ -1,9 +1,9 @@
 library(shiny)
 
-source('mod_plot.R')
-source('mod_ggplot2.R')
-source('mod_plotly.R')
-source('mod_rgl.R')
+source('R/mod_plot.R')
+source('R/mod_ggplot2.R')
+source('R/mod_plotly.R')
+source('R/mod_rgl.R')
 
 
 shinyUI = fixedPage(
@@ -17,7 +17,7 @@ shinyUI = fixedPage(
   h1("Shiny plots"),
 
   tabsetPanel(
-    tabPanel('Home', includeMarkdown('README.md')),
+    tabPanel('About', includeMarkdown('README.md')),
     plotUITab(),
     ggplot2UITab(),
     plotlyUITab(),

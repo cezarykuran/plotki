@@ -10,7 +10,7 @@ rglUITab <- function() {
     div(class="well",
         div(class='row',
             div(class='col-sm-10', sliderInput('rglplotRandomMax', NULL, value = 20, min = 10, max = 50)),
-            div(class='col-sm-2', tags$button(type="button", id="rglplotRandom", class="btn btn-sm btn-primary center-block action-button shiny-bound-input", "Add random"))
+            div(class='col-sm-2', tags$button(type="button", id="rglplotRandom", class="btn btn-sm btn-primary pull-right action-button shiny-bound-input", "Add random"))
         ),
 
         hr(),
