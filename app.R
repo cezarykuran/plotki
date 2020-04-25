@@ -1,9 +1,11 @@
 library(shiny)
+library(shinysky)
+library(rmarkdown)
 
-source('R/mod_plot.R')
-source('R/mod_ggplot2.R')
-source('R/mod_plotly.R')
-source('R/mod_rgl.R')
+#source('R/mod_plot.R')
+#source('R/mod_ggplot2.R')
+#source('R/mod_plotly.R')
+#source('R/mod_rgl.R')
 
 
 shinyUI = fixedPage(
@@ -33,4 +35,6 @@ shinyServer = function(input, output, session) {
   rglServer(input, output, session)
 }
 
-shinyApp(ui = shinyUI, server = shinyServer)
+options(shiny.launch.browser = FALSE)
+options(shiny.port = 8000)
+shiny::shinyApp(ui = shinyUI, server = shinyServer)

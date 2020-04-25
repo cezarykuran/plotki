@@ -6,7 +6,7 @@ rglUITab <- function() {
   tabPanel("rgl",
     p(class="h4", "Library RGL (WebGL)"),
            
-    rglwidgetOutput("rglplot"),
+    rglwidgetOutput("rglplot", width = '100%', height = '50vh'),
     div(class="well",
         div(class='row',
             div(class='col-sm-10', sliderInput('rglplotRandomMax', NULL, value = 20, min = 10, max = 50)),

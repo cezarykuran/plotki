@@ -9,7 +9,10 @@ ggplot2fl <- function() {
 ggplot2UITab <- function() {
   tabPanel("ggplot2",
     p(class="h4", "Library ggplot2"),
-    plotOutput("ggplot2", click = "ggplot2Click", brush = "ggplot2Brush"),
+    div(class='ggplot2Container',
+        plotOutput("ggplot2", height = '50vh', click = "ggplot2Click", brush = "ggplot2Brush"),
+        shiny::actionButton('ggplot2Reset', NULL, icon = icon('arrows-alt'))
+    ),
     div(class='well',
       div(class='row',
         div(class='col-md-3 col-sm-6', selectInput('ggplot2theme', 'Theme', c('classic', 'bw', 'minimal', 'light', 'dark'))),
@@ -26,22 +29,52 @@ ggplot2UITab <- function() {
 }
 
 ggplot2Server <- function(input, output, session) {
+  enlarged <- NULL
+  reset <- 0
+
   df <- reactive({
+    enlarged <<- NULL
+
     f <- paste0('upload/', input$ggplot2csv)
     if(!file.exists(f)) return(NULL)
-    d <- read.csv(f, header = TRUE)
-    return(d)
+    
+    read.csv(f, header = TRUE)
   })
+  
+  dfsubset <- reactive({
+    d <- df()
+    
+    if(!is.null(input$ggplot2Brush)) {
+      enlarged <<- c(
+        'xmin' = input$ggplot2Brush$xmin,
+        'xmax' = input$ggplot2Brush$xmax,
+        'ymin' = input$ggplot2Brush$ymin,
+        'ymax' = input$ggplot2Brush$ymax
+      )
+      session$resetBrush("ggplot2Brush")
+    }
 
-  upload <- reactive({
-    input$ggplot2upload
+    if(input$ggplot2Reset != reset) {
+      reset <<- input$ggplot2Reset
+      enlarged <<- NULL
+    }
+    
+    if(!is.null(enlarged)) {
+      d <- subset(d,
+        d[,1] > enlarged['xmin'] & d[,1] < enlarged['xmax']
+        & d[,2] > enlarged['ymin'] & d[,2] < enlarged['ymax']
+      )
+    }
+    d
   })
 
   output$ggplot2 <- renderPlot({
-    if(is.null(df()))
+    d <- dfsubset()
+
+    if(is.null(d))
       NULL
     else {
-      p <- ggplot(df()) + aes(x = df()[,1], y = df()[,2]) + labs(x=colnames(df())[1], y=colnames(df())[2])
+      p <- ggplot(d) + aes(x = d[,1], y = d[,2]) + labs(x=colnames(d)[1], y=colnames(d)[2])
       
       if(input$ggplot2type == 'point')
         p <- p + geom_point(colour = input$ggplot2colour, size=input$ggplot2width)
@@ -60,11 +93,14 @@ ggplot2Server <- function(input, output, session) {
         p <- p + theme_dark()
       else
         p <- p + theme_gray()
-        
       p
     }
   })
-
+  
+  upload <- reactive({
+    input$ggplot2upload
+  })
+  
   observe({
     if (is.null(upload()))
       return()

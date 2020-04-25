@@ -4,8 +4,8 @@ plotUITab <- function() {
     p("Function plot() with animation - to zoom select area on a plot."),
     div(
       class= "plotContainer",
-      plotOutput("plot", width=NULL, click = "plotClick", brush = "plotBrush"),
-      plotOutput("plotDetails", width=NULL)
+      plotOutput("plot", width=NULL, height = '50vh', click = "plotClick", brush = "plotBrush"),
+      plotOutput("plotDetails", width=NULL, height = '50vh')
     ),
     div(class = 'well',
       div(class='row',
@@ -32,7 +32,7 @@ plotServer <- function(input, output, session) {
       ymin = input$plotBrush$ymin,
       ymax = input$plotBrush$ymax
     )
-    
+
     xmin <- round(input$plotBrush$xmin)
     xmin <- ifelse(xmin>0, xmin, 1)
     xmax <- round(input$plotBrush$xmax)
